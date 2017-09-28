@@ -58,7 +58,7 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
-              <h1>{{ post.title }}</h1>
+              <h1>{{ post.title | safe }}</h1>
               <h2 class="subheading">{{ post.header | safe }}</h2>
               <span class="meta">Posted on {{ post.date }} | Kategoria 
               <a href="/search-by-category?category={{ post.category }}">{{ post.category }}</a></span>
