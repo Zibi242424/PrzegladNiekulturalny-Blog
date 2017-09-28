@@ -69,6 +69,63 @@ def logout():
 def home():    
     return render_template("dev_menu.html")
 
+@app.route('/edit_post_menu')
+@login_required
+def edit_post_menu():
+    """
+        Prints all the posts in the database in a table
+        and gives a possibility to edit them or delete.
+        
+        Function returns to the template a table of Post objects.
+    """
+    posts = db.session.query(BlogPost).order_by("id desc")
+    return render_template('edit_post_menu.html', posts=posts)
+
+@app.route('/edit_post/', methods=['GET','POST'])
+@login_required
+def edit_post():
+    if request.method == 'GET':
+        global id
+        id = int(request.args.get('id', None))
+        global post
+        post = db.session.query(Post).filter_by(id=id).first()
+        return render_template('edit_post.html', post=post)
+    if request.method == 'POST':
+        title = request.form['title']
+        header = f"""{request.form['header']}"""
+        text = f"""{request.form['text']}"""
+        category = request.form['category'] 
+        if title == '' or text == '':
+            return "You didn't fill all the obligatory fields (title, text)." 
+        post = db.session.query(Post).filter_by(id=id).first()                
+        post.title = title
+        post.header = header
+        post.text = text
+        post.category = category
+        post.date = str(datetime.now(poland))[:-13]
+        db.session.commit()
+        return f"Post with title '{ post.title }' was updated"
+
+@app.route('/delete_post', methods=['GET','POST'])
+@login_required
+def deleting_post():
+    """
+        Function firstly asks user if he is sure to delete
+        a post and if user answers yes it removes a post
+        from the database.
+    """
+    if request.method == 'GET':
+        id = int(request.args.get('id', None))
+        post = db.session.query(BlogPost).filter_by(id=id).first()
+        return render_template('ask_delete_post.html', post=post)
+    if request.method == 'POST':
+        id = int(request.args.get('id', None))
+        title = db.session.query(BlogPost).filter_by(id=id).first().title
+        db.session.query(BlogPost).filter_by(id=id).delete()
+        db.session.commit()
+        flash(f"Post with id {id} and title '{title}' has been deleted.")
+        return redirect(url_for('edit_post_menu'))
+
 @app.route('/add_post', methods=['GET','POST'])
 @login_required
 def adding_post():    
