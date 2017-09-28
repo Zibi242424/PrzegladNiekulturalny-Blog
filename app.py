@@ -88,7 +88,7 @@ def edit_post():
         global id
         id = int(request.args.get('id', None))
         global post
-        post = db.session.query(Post).filter_by(id=id).first()
+        post = db.session.query(BlogPost).filter_by(id=id).first()
         return render_template('edit_post.html', post=post)
     if request.method == 'POST':
         title = request.form['title']
@@ -97,7 +97,7 @@ def edit_post():
         category = request.form['category'] 
         if title == '' or text == '':
             return "You didn't fill all the obligatory fields (title, text)." 
-        post = db.session.query(Post).filter_by(id=id).first()                
+        post = db.session.query(BlogPost).filter_by(id=id).first()                
         post.title = title
         post.header = header
         post.text = text

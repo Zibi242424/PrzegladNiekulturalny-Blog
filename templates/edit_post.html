@@ -41,17 +41,14 @@
 <body>
     <h1>Editing post</h1>
     <form method='POST' action="/edit_post/">    
-    <input type="text" name="title" placeholder="Title" value="{{ post.title }}"></input><br>    
-    <textarea name="text" placeholder="Text post">
-        p1{{ post.paragraph_1 }} /p1  
-        p2{{ post.paragraph_2 }} /p2  
-        p3{{ post.paragraph_3 }} /p3  
-        p4{{ post.paragraph_4 }} /p4  
-        p5{{ post.paragraph_5 }} /p5  
-        p6{{ post.paragraph_6 }} /p6</textarea><br>    
-    <b>Language of the post:</b><br>
-    <input type="radio" name="language" value="PL" checked>PL<br>
-    <input type="radio" name="language" value="ENG">ENG<br>
+    <input type="text" name="title" placeholder="Title" value="{{ post.title }}"></input><br>  
+    <textarea name="header" placeholder="Text post">{{ post.header }}</textarea><br>
+    <textarea name="text" placeholder="Text post">{{ post.text}}</textarea><br>    
+    <b>Post's category:</b><br>
+    <input type="radio" name="category" value="Film" checked>Film<br>
+    <input type="radio" name="category" value="Książka">Książka<br>
+    <input type="radio" name="category" value="Muzyka">Muzyka<br>
+    <input type="radio" name="category" value="Gry Wideo">Gry Wideo<br>
     <button type="submit">Submit</button><br>
     </form>
 
