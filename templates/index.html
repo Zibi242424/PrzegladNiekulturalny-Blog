@@ -28,7 +28,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="/">Start Bootstrap</a>
+        <a class="navbar-brand" href="/">Zuzia blog</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -36,16 +36,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="post.html">Sample Post</a>
+              <a class="nav-link" href="#">Filtruj po kategorii</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="#">Kontakt</a>
             </li>
           </ul>
         </div>
@@ -58,8 +58,8 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
-              <h1>Clean Blog</h1>
-              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+              <h1>Te Zuza</h1>
+              <span class="subheading">To je twój blog</span>
             </div>
           </div>
         </div>
@@ -72,21 +72,22 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           {% for post in posts %}
           <div class="post-preview">
-            <a href="/?post={{ post.post_link }}">
+            <a href="/post?post={{ post.post_link }}">
               <h2 class="post-title">
                 {{ post.title }}
               </h2>
               <h3 class="post-subtitle">
-                {{ post.text[:30] }}
+                {{ post.header[:30] }}
               </h3>
             </a>
-            <p class="post-meta">Posted on {{ post.date }}</p>
+            <p class="post-meta">Posted on {{ post.date }} | Kategoria 
+              <a href="/search-by-category?category={{ post.category }}">{{ post.category }}</a></p>
           </div>          
           <hr>
           {% endfor %}          
           <!-- Pager -->
           <div class="clearfix">
-            <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
+            <a class="btn btn-secondary float-right" href="/all_posts">Archiwum &rarr;</a>
           </div>
         </div>
       </div>
@@ -125,7 +126,7 @@
                 </a>
               </li>
             </ul>
-            <p class="copyright text-muted">Copyright &copy; Your Website 2017</p>
+            <p class="copyright text-muted">Copyright &copy; Zuza Gliszczyńska, Zbigniew Mansel 2017</p>
           </div>
         </div>
       </div>

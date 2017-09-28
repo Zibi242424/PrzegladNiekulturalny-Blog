@@ -18,6 +18,8 @@ db = SQLAlchemy(app)
 
 from models import *
 
+poland = timezone('Europe/Warsaw')
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -78,18 +80,38 @@ def adding_post():
         return render_template('add_post.html')
     if request.method == 'POST':        
         title = request.form['title']
-        text = f"""{request.form['text']}"""        
+        header = f"""{request.form['header']}"""
+        text = f"""{request.form['text']}"""
+        category = request.form['category']        
         if title == '' or text == '':
             return "You didn't fill all the obligatory fields (title, text)."
         if BlogPost.query.filter_by(title=title).first() is not None:
             return "Post probably is already in the database."            
         date = str(datetime.now(poland))[:-13]       
-        db.session.add(BlogPost(title, text, date))
+        db.session.add(BlogPost(title, header, text, date, category))
         db.session.commit()
         db.session.close()
         msg = "Added succesfully"                      
         return f"'{title}' post was added... {msg}"
     return "No authorization to perform this action."
+
+@app.route('/post')
+def post():
+    post_link = request.args.get('post', None)
+    post = db.session.query(BlogPost).filter_by(post_link=post_link).first()
+    return render_template('post.html', post=post)
+
+@app.route('/search-by-category')
+def search_by_category():
+    category = request.args.get('category',None)
+    posts = db.session.query(BlogPost).filter_by(category=category).order_by("id")[::-1]    
+    return render_template('search_by_category.html', posts=posts, category=category)
+
+
+@app.route('/all_posts')
+def all_posts():
+    posts = posts = db.session.query(BlogPost).order_by("id")[::-1]
+    return render_template('all_posts.html', posts=posts)
 
 if __name__ == '__main__':
     app.run()
