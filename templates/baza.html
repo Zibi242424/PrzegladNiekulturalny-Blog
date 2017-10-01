@@ -9,7 +9,28 @@
     <meta name="author" content="">
 
     <title>Przegląd niekulturalny</title>
-
+    <style>
+    @media only screen and (min-width: 1200px) {
+    body {
+    font-size: 21px;
+    }
+    }
+    @media only screen and (max-width: 768px) {
+    body {
+    font-size: 20px;
+    }
+    }
+    @media only screen and (max-width: 1200px) {
+    body {
+    font-size: 20px;
+    }
+    }
+    @media only screen and (max-width: 320px) {
+    body {
+    font-size: 10px;
+    }
+    }
+    </style>
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
 
@@ -39,7 +60,7 @@
               <a class="nav-link" href="/">Start</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Kategorie</a>
+              <a class="nav-link" href="/choose-category">Kategorie</a>
             </li>            
             <li class="nav-item">
               <a class="nav-link" href="#">Kontakt</a>

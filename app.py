@@ -106,6 +106,7 @@ def edit_post():
         db.session.commit()
         return f"Post with title '{ post.title }' was updated"
 
+
 @app.route('/delete_post', methods=['GET','POST'])
 @login_required
 def deleting_post():
@@ -126,6 +127,7 @@ def deleting_post():
         flash(f"Post with id {id} and title '{title}' has been deleted.")
         return redirect(url_for('edit_post_menu'))
 
+
 @app.route('/add_post', methods=['GET','POST'])
 @login_required
 def adding_post():    
@@ -139,13 +141,14 @@ def adding_post():
         title = request.form['title']
         header = f"""{request.form['header']}"""
         text = f"""{request.form['text']}"""
+        image = f"""{request.form['image']}"""
         category = request.form['category']        
         if title == '' or text == '':
             return "You didn't fill all the obligatory fields (title, text)."
         if BlogPost.query.filter_by(title=title).first() is not None:
             return "Post probably is already in the database."            
         date = str(datetime.now(poland))[:-13]       
-        db.session.add(BlogPost(title, header, text, date, category))
+        db.session.add(BlogPost(title, header, text, date, category, image))
         db.session.commit()
         db.session.close()
         msg = "Added succesfully"                      
@@ -161,9 +164,14 @@ def post():
 @app.route('/search-by-category')
 def search_by_category():
     category = request.args.get('category',None)
+    if category == "Gry-Wideo":
+        category = "Gry Wideo"
     posts = db.session.query(BlogPost).filter_by(category=category).order_by("id")[::-1]    
     return render_template('search_by_category.html', posts=posts, category=category)
 
+@app.route('/choose-category')
+def choose_category():
+    return render_template('choose_category.html')
 
 @app.route('/all_posts')
 def all_posts():

@@ -8,7 +8,7 @@ date = str(datetime.now(poland))[:-13]
 
 db.create_all()
 
-db.session.add(BlogPost("Post testowy", "Sprawdzamy czy wszystko gra", "Mam nadzieję że tak", date, "Film"))
+db.session.add(BlogPost("Post testowy", "Sprawdzamy czy wszystko gra", "Mam nadzieję że tak", date, "Film", ""))
 
 
 db.session.commit()

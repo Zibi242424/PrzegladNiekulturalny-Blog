@@ -11,14 +11,16 @@ class BlogPost(db.Model):
     text = db.Column(db.String)
     date = db.Column(db.String)
     category = db.Column(db.String)
+    image = db.Column(db.String)
     post_link = db.Column(db.String)
 
-    def __init__(self, title, header, text, date, category):
+    def __init__(self, title, header, text, date, category, image):
         self.title = title
         self.header = header
         self.text = text
         self.date = date
         self.category = category
+        self.image = image
         lowercase = re.compile(r' ')
         self.post_link = lowercase.sub('_', title).lower()
     

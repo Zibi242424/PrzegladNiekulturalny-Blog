@@ -1,0 +1,39 @@
+{% extends "baza.html" %}
+{% block content %}
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: {{ url_for('static', filename='home-bg.jpg') }} ">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1 style="font-size: 60px">Przegląd niekulturalny</h1>
+              <span class="subheading">Wybierz kategorię</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        <br>
+          <div class="row">
+              <div class="col-md-3"><a href="/search-by-category?category=Film"><h3>Filmy</h3>
+              </div>
+              <div class="col-md-3"><a href="/search-by-category?category=Książka"><h3>Książka</h3></a>
+              </div>
+              <div class="col-md-3"><a href="/search-by-category?category=Muzyka"><h3>Muzyka</h3></a>
+              </div>
+              <div class="col-md-3"><a href="/search-by-category?category=Gry-Wideo"><h3>Gry Wideo</h3></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+ {% endblock %}
